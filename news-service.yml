@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: news-service
+
+    news:
+      url: https://newsapi.org/v2/
+      api-key: bd1a0628080c4500926b165e92bb3512
+
+  config:
+    import: optional:configserver:http://localhost:8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+server:
+  port: 8083
+

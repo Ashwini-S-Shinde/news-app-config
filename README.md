@@ -1,2 +1,2 @@
 # news-app-config
-configuration for news app
+This repo holds externalised configuration for news app

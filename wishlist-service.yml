@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: wishlist-service
+
+  datasource:
+    driver:
+      class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vfsd8-ashinde-wishlist?createDatabaseIfNotExist=true
+    username: root
+    password: root1234
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  config:
+    import: optional:configserver:http://localhost:8888
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+server:
+  port: 8084
+
