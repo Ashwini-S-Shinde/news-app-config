@@ -7,7 +7,7 @@ spring:
       api-key: bd1a0628080c4500926b165e92bb3512
 
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:8888
 
 management:
   endpoints:
@@ -18,3 +18,11 @@ management:
 server:
   port: 8083
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${EUREKA_SERVER_HOST:localhost}:8761/eureka

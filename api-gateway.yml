@@ -1,6 +1,9 @@
 server:
   port: 8880
 
+
+
+
 spring:
   main:
     web-application-type : reactive
@@ -15,29 +18,29 @@ spring:
           /eureka
   # Config server Configuration
   config:
-    import: optional:configserver:http://localhost:8888
-    
+    import: optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:8888
+
 
 
   cloud:
     gateway:
       routes:
         - id: user-profile-service
-          uri: http://localhost:8082
+          uri: http://${USER_PROFILE_SERVICE_HOST:localhost}:8082
           predicates:
             - Path=/user-profile-api/v1/**
         - id: news-service
-          uri: http://localhost:8083
+          uri: http://${NEWS_SERVICE_HOST:localhost}:8083
           predicates:
             - Path=/news-api/v1/**
         - id: wishlist-service
-          uri: http://localhost:8084
+          uri: http://${WISHLIST_SERVICE_HOST:localhost}:8084
           predicates:
             - Path=/wishlist-api/v1/**
           filters:
-            - AuthFilter #filter for validation of token
+            - AuthFilter
         - id: authentication
-          uri: http://localhost:8085
+          uri: http://${AUTHENTICATION_HOST:localhost}:8085
           predicates:
             - Path=/authentication-api/v1/**
       default-filters:
@@ -53,3 +56,12 @@ spring:
 jwt:
   secret: secret
   message: Authenticated successfully
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${EUREKA_SERVER_HOST:localhost}:8761/eureka
